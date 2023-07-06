@@ -30,21 +30,26 @@ class aToi
 /*You are required to complete this method */
 class Solution
 {
+    int at(int id,String str,int n){
+        if(id==str.length()){
+            return n;
+        }
+        if(Character.isDigit(str.charAt(id))==false){
+            return -1;
+        }
+        return at(id+1,str,(n*10)+Integer.parseInt(str.charAt(id)+""));
+        
+    }
     int atoi(String str) {
-	// Your code here
-	int res=0,f=0;
-	for(int i=0;i<str.length();i++){
-	    if((Character.isDigit(str.charAt(i))==false && str.charAt(i)!='-') || f>1 || (str.charAt(i)=='-' && i!=0)){
-	        return -1;
-	    }
-	    if(str.charAt(i)=='-'){
-	        f+=1;
-	    }
-	    else
-	    res=res*10+(Integer.parseInt(str.charAt(i)+""));
+	int n=0;
+	if(str.charAt(0)=='-'){
+	   n= at(1,str,0);
+	   if(n!=-1)
+	   n=n*-1;
 	}
-	if(f==1)
-	res=res*-1;
-	return res;
+	else{
+	    n=at(0,str,0);
+	}
+	return n;
     }
 }
